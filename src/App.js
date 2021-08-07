@@ -12,8 +12,6 @@ function App() {
     setTodo([...todoList, todoText]);
   }
 
-  console.log(todoList);
-
   return (
     <Fragment>
       <h1>#todo</h1>
