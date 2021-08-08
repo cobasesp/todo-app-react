@@ -1,0 +1,46 @@
+#root{
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#todo-input input{
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #c5c5c5;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.todo-checkbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 10px 0;
+}
+
+.todo-checkbox .check{
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+
+.todo-checkbox p{
+    margin: 0 5px;
+    font-size: 20px;
+}
+
+.todo-checkbox .check:checked + p{
+    text-decoration: line-through;
+}
+
+@media screen and (max-width: 500px) {
+    #root{
+        width: 100%;
+        padding: 20px 10px;
+        box-sizing: border-box;
+    }
+}

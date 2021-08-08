@@ -14,7 +14,13 @@ const AddTodo = ({saveTodo}) => {
     }
 
     return(
-        <input type="text" placeholder="Escribe una tarea..." onKeyUp={save}/>
+        <div id="todo-input">
+            <input 
+            type="text" 
+            className="form-control" 
+            placeholder="Escribe una tarea..." 
+            onKeyUp={save}/>
+        </div>
     );
 
 }

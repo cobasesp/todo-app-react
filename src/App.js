@@ -1,4 +1,4 @@
-import './App.css';
+import './todo.css';
 import React, { Fragment, useState, useEffect } from 'react';
 
 import AddTodo from './components/AddTodo';
