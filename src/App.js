@@ -6,10 +6,12 @@ import TodoList from './components/TodoListComponent';
 
 function App() {
 
+  // Define useStates
   const [todoList, setTodo] = useState([]);
   const [todoView, setTodoView] = useState([]);
   const [viewOption, setViewOption] = useState('all');
 
+  // Init once the todoList from local storage
   useEffect(() => {
     let todos = localStorage.getItem('todolist');
     if(todos != null || typeof todos != 'undefined'){
@@ -17,6 +19,7 @@ function App() {
     }
   }, []);
 
+  // Syncronize todoView with current todoList in any todo or view, changes
   useEffect(() => {
     switch(viewOption){
       case 'all':
@@ -24,16 +27,17 @@ function App() {
         break;
       
       case 'active':
-        setTodoView(getTodosByStatus(false));
+        setTodoView(todoList.filter((todo) => {return todo.done == false}));
         break;
 
       case 'completed':
-        setTodoView(getTodosByStatus(true));
+        setTodoView(todoList.filter((todo) => {return todo.done == true}));
         break;
     }
     
   }, [todoList, viewOption])
 
+  // Function to add todo to the useState and save it in local storage
   const addTodo = todoText => {
     let nextId = todoList.length + 1;
     todoText = {...todoText, 'id': nextId}
@@ -41,6 +45,7 @@ function App() {
     localStorage.setItem('todolist', JSON.stringify([...todoList, todoText]));
   }
 
+  // Update todo status when checkbox is clicked
   const updateTodoStatus = (id, status) => {
     let newArray = [];
     
@@ -52,20 +57,10 @@ function App() {
     });
 
     setTodo(newArray);
+    localStorage.setItem('todolist', JSON.stringify(newArray));
   }
 
-  const getTodosByStatus = (status) => {
-    let newArray = [];
-
-    todoList.forEach((todo) => {
-      if(todo.done == status){
-        newArray.push(todo);
-      }
-    });
-
-    return newArray;
-  }
-
+  // Change active options view
   const changeOption = (e) => {
     document.querySelector('.active').classList.remove('active');
     e.target.classList.add('active');
