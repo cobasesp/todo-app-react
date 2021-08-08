@@ -11,6 +11,13 @@ function App() {
   const [viewOption, setViewOption] = useState('all');
 
   useEffect(() => {
+    let todos = localStorage.getItem('todolist');
+    if(todos != null || typeof todos != 'undefined'){
+      setTodo(JSON.parse(todos));
+    }
+  }, []);
+
+  useEffect(() => {
     switch(viewOption){
       case 'all':
         setTodoView(todoList);
@@ -31,6 +38,7 @@ function App() {
     let nextId = todoList.length + 1;
     todoText = {...todoText, 'id': nextId}
     setTodo([...todoList, todoText]);
+    localStorage.setItem('todolist', JSON.stringify([...todoList, todoText]));
   }
 
   const updateTodoStatus = (id, status) => {
