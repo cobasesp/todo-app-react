@@ -7,16 +7,37 @@ import TodoList from './components/TodoListComponent';
 function App() {
 
   const [todoList, setTodo] = useState([]);
+  const [todoView, setTodoView] = useState([]);
+  const [viewOption, setViewOption] = useState('all');
+
+  useEffect(() => {
+    switch(viewOption){
+      case 'all':
+        setTodoView(todoList);
+        break;
+      
+      case 'active':
+        setTodoView(getTodosByStatus(false));
+        break;
+
+      case 'completed':
+        setTodoView(getTodosByStatus(true));
+        break;
+    }
+    
+  }, [todoList, viewOption])
 
   const addTodo = todoText => {
+    let nextId = todoList.length + 1;
+    todoText = {...todoText, 'id': nextId}
     setTodo([...todoList, todoText]);
   }
 
-  const updateTodoStatus = (i, status) => {
+  const updateTodoStatus = (id, status) => {
     let newArray = [];
     
-    todoList.forEach((todo, index) => {
-      if( index == i ) {
+    todoList.forEach((todo) => {
+      if( todo.id == id ) {
         todo.done = status;
       }
       newArray.push(todo);
@@ -25,15 +46,38 @@ function App() {
     setTodo(newArray);
   }
 
+  const getTodosByStatus = (status) => {
+    let newArray = [];
+
+    todoList.forEach((todo) => {
+      if(todo.done == status){
+        newArray.push(todo);
+      }
+    });
+
+    return newArray;
+  }
+
+  const changeOption = (e) => {
+    document.querySelector('.active').classList.remove('active');
+    e.target.classList.add('active');
+  }
+
   return (
     <Fragment>
       <h1>#todo</h1>
+
+      <div id="options">
+        <div onClick={(e) => {setViewOption('all'); changeOption(e)}} className="active">All</div>
+        <div onClick={(e) => {setViewOption('active'); changeOption(e)}}>Active</div>
+        <div onClick={(e) => {setViewOption('completed'); changeOption(e)}}>Completed</div>
+      </div>
 
       <AddTodo saveTodo={todoText => {
         addTodo(todoText);
       }} ></AddTodo>
 
-      <TodoList todoList={todoList} updateTodoStatus={updateTodoStatus}></TodoList>
+      <TodoList todoView={todoView} updateTodoStatus={updateTodoStatus}></TodoList>
 
     </Fragment>
   );

@@ -4,6 +4,24 @@
     text-align: center;
 }
 
+#options{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin: 20px 0;
+    border-bottom: 1px solid #c3c3c3;
+}
+
+#options div{
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+#options div.active{
+    border-bottom: 3px rgb(30, 110, 230) solid;
+}
+
 #todo-input input{
     width: 100%;
     padding: 10px;

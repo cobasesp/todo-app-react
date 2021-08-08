@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TodoList = ({todoList, updateTodoStatus}) => {
+const TodoList = ({todoView, updateTodoStatus}) => {
 
     const changeStatus = (index, e) => {
         updateTodoStatus(index, e.target.checked);
@@ -8,13 +8,14 @@ const TodoList = ({todoList, updateTodoStatus}) => {
 
     return(
         <div>
-            {todoList.map((todo, index) => (
-                <div className="todo-checkbox" key={todo}>
+            {todoView.map((todo) => (
+                <div className="todo-checkbox" key={todo.id}>
                     <input type="checkbox"
                     className="check form-control"
-                    name={"check" + index} 
-                    id={"check" + index} 
-                    onClick={(e) => changeStatus(index, e)}/>
+                    name={"check" + todo.id} 
+                    id={"check" + todo.id}
+                    defaultChecked={todo.done}
+                    onClick={(e) => changeStatus(todo.id, e)}/>
                     <p>{todo.text}</p>
                 </div>
             ))}
