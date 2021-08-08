@@ -3,9 +3,10 @@ import React from 'react';
 const AddTodo = ({saveTodo}) => {
 
     const save = (e) => {
-        if(e.keyCode == 13){
-            console.log(e.target.value);
-            saveTodo(e.target.value);
+        let text = e.target.value;
+        if(e.keyCode == 13 && text != ""){
+            saveTodo(text);
+            e.target.value = "";
         }
     }
 
