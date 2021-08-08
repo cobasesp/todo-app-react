@@ -5,7 +5,10 @@ const AddTodo = ({saveTodo}) => {
     const save = (e) => {
         let text = e.target.value;
         if(e.keyCode == 13 && text != ""){
-            saveTodo(text);
+            saveTodo({
+                'text': text,
+                'done': false
+            });
             e.target.value = "";
         }
     }

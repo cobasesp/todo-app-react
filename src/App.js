@@ -12,6 +12,19 @@ function App() {
     setTodo([...todoList, todoText]);
   }
 
+  const updateTodoStatus = (i, status) => {
+    let newArray = [];
+    
+    todoList.forEach((todo, index) => {
+      if( index == i ) {
+        todo.done = status;
+      }
+      newArray.push(todo);
+    });
+
+    setTodo(newArray);
+  }
+
   return (
     <Fragment>
       <h1>#todo</h1>
@@ -20,7 +33,7 @@ function App() {
         addTodo(todoText);
       }} ></AddTodo>
 
-      <TodoList todoList={todoList}></TodoList>
+      <TodoList todoList={todoList} updateTodoStatus={updateTodoStatus}></TodoList>
 
     </Fragment>
   );
