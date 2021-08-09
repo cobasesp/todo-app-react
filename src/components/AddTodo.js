@@ -13,13 +13,26 @@ const AddTodo = ({saveTodo}) => {
         }
     }
 
+    const saveFromButton = () => {
+        let text = document.querySelector('.todo-box').value;
+        if(text != ""){
+            saveTodo({
+                'text': text,
+                'done': false
+            });
+
+            document.querySelector('.todo-box').value = "";
+        }
+    }
+
     return(
         <div id="todo-input">
             <input 
             type="text" 
-            className="form-control" 
+            className="form-control todo-box" 
             placeholder="Escribe una tarea..." 
             onKeyUp={save}/>
+            <button onClick={saveFromButton}>Add</button>
         </div>
     );
 
