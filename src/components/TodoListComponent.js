@@ -6,9 +6,13 @@ const TodoList = ({todoView, updateTodoStatus, viewOption, removeTodo}) => {
         updateTodoStatus(index, e.target.checked);
     }
 
+    if(todoView == null){
+        todoView = [];
+    }
     return(
         <div>
-            {todoView.map((todo) => (
+            {todoView != null &&
+            todoView.map((todo) => (
                 <Fragment>
                     <div className="todo-checkbox" key={todo.id}>
                         <div class="todo-content">
