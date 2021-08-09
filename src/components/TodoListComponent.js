@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const TodoList = ({todoView, updateTodoStatus, viewOption, removeTodo}) => {
 
@@ -13,24 +13,21 @@ const TodoList = ({todoView, updateTodoStatus, viewOption, removeTodo}) => {
         <div>
             {todoView != null &&
             todoView.map((todo) => (
-                <Fragment>
-                    <div className="todo-checkbox" key={todo.id}>
-                        <div class="todo-content">
-                            <input type="checkbox"
-                            className="check form-control"
-                            name={"check" + todo.id} 
-                            id={"check" + todo.id}
-                            defaultChecked={todo.done}
-                            onClick={(e) => changeStatus(todo.id, e)}/>
-                            <p>{todo.text}</p>
-                        </div>
-                        
-                        {todo.done == true && viewOption == 'completed' && 
-                            <img className="delete-one" onClick={() => removeTodo(todo.id)} src={"/img/trash_icon_red.svg"}/>
-                        }
+                <div className="todo-checkbox" key={todo.id}>
+                    <div class="todo-content">
+                        <input type="checkbox"
+                        className="check form-control"
+                        name={"check" + todo.id} 
+                        id={"check" + todo.id}
+                        defaultChecked={todo.done}
+                        onClick={(e) => changeStatus(todo.id, e)}/>
+                        <p>{todo.text}</p>
                     </div>
-
-                </Fragment>
+                    
+                    {todo.done == true && viewOption == 'completed' && 
+                        <img className="delete-one" onClick={() => removeTodo(todo.id)} src={"/img/trash_icon_red.svg"}/>
+                    }
+                </div>
             ))}
 
             {todoView.length > 0 && viewOption == 'completed' && 

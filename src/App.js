@@ -14,9 +14,12 @@ function App() {
 
   // Init once the todoList from local storage
   useEffect(() => {
+    debugger;
     let todos = localStorage.getItem('todolist');
-    if(todos != null || typeof todos != 'undefined'){
+    if(todos != null && typeof todos != 'undefined'){
       setTodo(JSON.parse(todos));
+    }else{
+      setTodo([]);
     }
   }, []);
 
