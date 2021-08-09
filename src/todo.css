@@ -49,14 +49,26 @@ code {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin: 10px 0;
+}
+
+.todo-checkbox .delete-one{
+    cursor: pointer;
+}
+
+.todo-checkbox .todo-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
 .todo-checkbox .check{
     vertical-align: middle;
     width: 20px;
     height: 20px;
+    margin-top: 5px;
 }
 
 .todo-checkbox p{
@@ -66,6 +78,15 @@ code {
 
 .todo-checkbox .check:checked + p{
     text-decoration: line-through;
+}
+
+.delete-all{
+    float: right;
+    margin-top: 10px;
+}
+
+.delete-all img{
+    filter: invert(1);
 }
 
 @media screen and (max-width: 500px) {

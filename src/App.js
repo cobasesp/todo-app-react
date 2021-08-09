@@ -1,5 +1,6 @@
 import './todo.css';
 import React, { Fragment, useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 import AddTodo from './components/AddTodo';
 import TodoList from './components/TodoListComponent';
@@ -39,10 +40,46 @@ function App() {
 
   // Function to add todo to the useState and save it in local storage
   const addTodo = todoText => {
-    let nextId = todoList.length + 1;
+    let nextId = null;
+    if(todoList.length > 0){
+      nextId = todoList[todoList.length - 1].id + 1;
+    }else{
+      nextId = todoList.length + 1;
+    }
     todoText = {...todoText, 'id': nextId}
     setTodo([...todoList, todoText]);
     localStorage.setItem('todolist', JSON.stringify([...todoList, todoText]));
+  }
+
+  // Function that deletes from the todo array an item
+  const removeTodo = id => {
+    Swal.fire({
+      title: '¿Seguro que quieres eliminar esto?',
+      text: "No podrás recuperarlo después",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, eliminar!',
+      cancelmButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if(id === 'all'){
+          let newList = todoList.filter((todo) => {return todo.done != true});
+          setTodo(newList);
+          localStorage.setItem('todolist', JSON.stringify(newList));
+        }else{
+          let newList = todoList.filter((todo) => {return todo.id != id});
+          setTodo(newList);
+          localStorage.setItem('todolist', JSON.stringify(newList));
+        }
+        Swal.fire(
+          '¡Eliminado!',
+          '',
+          'success'
+        )
+      }
+    })
   }
 
   // Update todo status when checkbox is clicked
@@ -80,7 +117,13 @@ function App() {
         addTodo(todoText);
       }} ></AddTodo>
 
-      <TodoList todoView={todoView} updateTodoStatus={updateTodoStatus}></TodoList>
+      <TodoList 
+        todoView={todoView} 
+        updateTodoStatus={updateTodoStatus}
+        viewOption={viewOption}
+        removeTodo={removeTodo}
+        >
+      </TodoList>
 
     </Fragment>
   );
